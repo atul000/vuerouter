@@ -7,6 +7,26 @@
         <!-- <router-link to="/about">About</router-link> | -->
       </li>
     </ul>
+    <h2>User Profiles</h2>
+    <ul>
+      <li v-for="(id, index) in userIds" :key="index">
+        <router-link :to="{ name: 'ViewProfile', params: { user_id: id } }">
+          Profile {{ id }}
+        </router-link>
+      </li>
+    </ul>
+    <h2>Navigation Controls</h2>
+    <ul>
+      <li>
+        <button @click="goBack">Go Back</button>
+      </li>
+      <li>
+        <button @click="goHome">Redirect to Home</button>
+      </li>
+      <li>
+        <button @click="goForward">Go Forward</button>
+      </li>
+    </ul>
   </nav>
 </template>
 
@@ -14,7 +34,20 @@
 export default {
   name: "Navbar",
   data() {
-    return {};
+    return {
+      userIds: ["1", "2", "3", "4"]
+    };
+  },
+  methods: {
+    goHome() {
+      this.$router.push({ name: "Home" });
+    },
+    goBack() {
+      this.$router.go(-1);
+    },
+    goForward() {
+      this.$router.go(1);
+    }
   }
 };
 </script>
@@ -34,5 +67,8 @@ li {
 }
 a {
   color: #42b983;
+}
+a.router-link-exact-active {
+  color: palevioletred;
 }
 </style>
